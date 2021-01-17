@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/chat.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
+
+    <title>TalkSafe</title>
+</head>
+<body>
+    <br>
+    <div class="container">
+        <div class="messaging">
+            <div class="inbox_msg">
+                <div class="mesgs">
+                    <div class="msg_history" id="message-list">
+
+                    </div>
+                    <div class="type_msg">
+                    <div class="input_msg_write">
+                        <input type="text" class="write_msg" placeholder="Mesaj tıngırdat" id="chat-input" />
+                        <button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cryptico/0.0.1343522940/cryptico.min.js" integrity="sha512-C7GGRhFRn7F7hsLH1oCH2kX9ls61kx33wAgTZ6xJDwGvvgULcIZpwKqxG1+Kj/KOD2jWPxjNQYHi4BopPJPxVA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.10/jsrender.min.js" integrity="sha512-7yQAIBjexgysvXcuKPFsm6+wy+Mm6gWz/ZIRnuMDgDqUPEn3SyYGg/qxDdHeNpFU/4PgdKTeHscYjgKIumqsYg==" crossorigin="anonymous"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="module" src="/js/main.js"></script>
+
+
+    <!-- Templates -->
+
+    <script id="incoming-message" type="text/x-jsrender">
+        <div class="incoming_msg">
+            <div class="incoming_msg_img">  </div>
+            <div class="received_msg">
+            <div class="received_withd_msg">
+                <p>{{:message}}</p>
+                <span class="time_date"> <!--{{:date}}--> </span></div>
+            </div>
+        </div>
+    </script>
+
+    <script id="outgoing-message" type="text/x-jsrender">
+        <div class="outgoing_msg">
+            <div class="sent_msg">
+            <p> {{:message}}</p>
+            <!--<span class="time_date"> <!--{{:date}}--> </span> </div>-->
+        </div>
+    </script>
+</body>
+</html>
