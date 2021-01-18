@@ -4,9 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/chat.css">
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" type="text/css" rel="stylesheet">
 
     <title>TalkSafe</title>
@@ -31,15 +30,34 @@
         </div>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cryptico/0.0.1343522940/cryptico.min.js" integrity="sha512-C7GGRhFRn7F7hsLH1oCH2kX9ls61kx33wAgTZ6xJDwGvvgULcIZpwKqxG1+Kj/KOD2jWPxjNQYHi4BopPJPxVA==" crossorigin="anonymous"></script>
+    <script src="https://gitcdn.xyz/repo/bilginfurkan/cryptico/master/cryptico.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsrender/1.0.10/jsrender.min.js" integrity="sha512-7yQAIBjexgysvXcuKPFsm6+wy+Mm6gWz/ZIRnuMDgDqUPEn3SyYGg/qxDdHeNpFU/4PgdKTeHscYjgKIumqsYg==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.min.js" integrity="sha512-8qmis31OQi6hIRgvkht0s6mCOittjMa9GMqtK9hes5iEQBQE/Ca6yGE5FsW36vyipGoWQswBj/QBm2JR086Rkw==" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script type="module" src="/js/main.js"></script>
 
 
-    <!-- Templates -->
+    <!-- Modals -->
 
+    <div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-hidden="true"  data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Bilgi</h5>
+            </div>
+            <div class="modal-body">
+                <div class="d-flex justify-content-center">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <!-- Templates -->
     <script id="incoming-message" type="text/x-jsrender">
         <div class="incoming_msg">
             <div class="incoming_msg_img">  </div>

@@ -19,11 +19,17 @@ export default class ConnectionController {
 
         this.socket = io();
         this.registerEvents();
+
+        this.main.modalController.showLoadingModal("Sunucuya bağlanılıyor...");
     }
 
     registerEvents() {
         this.socket.on("connect", () => {
-            this.sendInit();
+            this.main.modalController.showLoadingModal("Şifreleniyor...");
+            setTimeout(() => {
+                this.sendInit();
+                this.main.modalController.hideLoadingModal();
+            }, 200);
         });
 
         this.socket.on("chat", (data) => {

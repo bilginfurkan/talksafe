@@ -8,21 +8,17 @@ function randomString(length) {
     return result;
 }
 
-const STORAGE_PASSPHRASE = "keyPassphrase";
+const STORAGE_RSA_KEY = "rsaKey";
 
 export default class EncryptionController {
     _keyCache;
-
-    constructor() {
-        this.getRSAKey();
-    }
 
     generateKey(passphrase=undefined) {
         if (passphrase === undefined) {
             passphrase = randomString(1024);
         }
         
-        return new Key(cryptico.generateRSAKey(passphrase, 1024), passphrase);
+        return new Key(cryptico.generateRSAKey(passphrase, 1500), passphrase); // RSA-1500 because, why not?
     }
 
     decrypt(text) {
@@ -30,11 +26,14 @@ export default class EncryptionController {
     }
 
     getRSAKey() {
-        if (!window.localStorage.getItem(STORAGE_PASSPHRASE)) {
+        if (!window.localStorage.getItem(STORAGE_RSA_KEY)) { // Generate public-private key pair if it doesn't exist
             this._keyCache = this.generateKey();
-            window.localStorage.setItem(STORAGE_PASSPHRASE, this._keyCache.passphrase);
-        } else if (this._keyCache === undefined) {
-            this._keyCache = this.generateKey(window.localStorage.getItem(STORAGE_PASSPHRASE));
+            window.localStorage.setItem(STORAGE_RSA_KEY, JSON.stringify(this._keyCache));
+
+        } else if (this._keyCache === undefined) { // Load existing one
+            this._keyCache = JSON.parse(window.localStorage.getItem(STORAGE_RSA_KEY));
+
+            this._keyCache.rsaKey = cryptico.importRSAKey(this._keyCache.rsaKey);
         }
 
         return this._keyCache.rsaKey;
