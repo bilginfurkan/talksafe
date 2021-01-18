@@ -2,7 +2,7 @@ class User {
     id;
     publicKey;
     socket;
-    name;
+    username;
 
     constructor(id, publicKey, socket) {
         this.id = id;
@@ -11,6 +11,7 @@ class User {
     }
 }
 
+const base64 = require("./utils/base64");
 const cryptico = require("cryptico");
 const connections = new Map();
 
@@ -25,8 +26,6 @@ function init(io) {
         let uniqueKey = socket.id;
         let user = new User(uniqueKey, undefined, socket);
 
-        connections.set(uniqueKey, user);
-    
         socket.on("init", (data) => {
             if (!testPublicKey(data.publicKey)) {
                 console.log("Invalid public key, disconnecting.");
@@ -34,23 +33,25 @@ function init(io) {
                 return;
             }
 
-            user.name = data.name;
+            user.username = data.userData.username;
             user.publicKey = data.publicKey;
 
             socket.emit("initDone");
         });
     
         socket.on("chat", (data) => {
-            sendMessage(data);
+            sendMessage(data, user);
         });
 
         socket.on("disconnect", () => {
             connections.delete(uniqueKey);
         });
+        
+        connections.set(uniqueKey, user);
     });
 }
 
-function sendMessage(data) {
+function sendMessage(data, user) {
     let str = data.content;
 
     if (str === undefined || str === "") {
@@ -58,16 +59,19 @@ function sendMessage(data) {
         return;
     }
 
-    for (const user of connections.values()) {
-        let encryptedData = str;
-        encryptedData = cryptico.encrypt(encryptedData, user.publicKey);
+    for (const target of connections.values()) {
+        let encryptedData = { 
+            chat: str,
+            username: user.username
+        };
+
+        encryptedData = cryptico.encrypt(base64.encodeObject(encryptedData), target.publicKey);
         
-        if (encryptedData.status !== "success") {
-            console.log("Invalid public key");
+        if (encryptedData.status !== "success") { // Invalid public key
             continue;
         }
 
-        user.socket.emit("chat", {
+        target.socket.emit("chat", {
             encryptedData : encryptedData.cipher
         });
     }

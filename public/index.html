@@ -21,7 +21,7 @@
                     </div>
                     <div class="type_msg">
                     <div class="input_msg_write">
-                        <input type="text" class="write_msg" placeholder="Mesaj tıngırdat" id="chat-input" />
+                        <input type="text" class="write_msg" placeholder="Mesaj tıngırdat..." id="chat-input" />
                         <button class="msg_send_btn" id="message-send-button" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
                     </div>
                     </div>
@@ -40,11 +40,12 @@
 
     <!-- Modals -->
 
+    <!-- Loading modal -->
     <div class="modal fade" id="loading-modal" tabindex="-1" role="dialog" aria-hidden="true"  data-toggle="modal" data-backdrop="static" data-keyboard="false">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+            <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Bilgi</h5>
+                <h5 class="modal-title">Bilgi</h5>
             </div>
             <div class="modal-body">
                 <div class="d-flex justify-content-center">
@@ -53,18 +54,38 @@
                     </div>
                 </div>
             </div>
-          </div>
+            </div>
         </div>
-      </div>
+    </div>
 
+    <div class="modal fade" id="login-modal" tabindex="-1" role="dialog" aria-hidden="true"  data-toggle="modal" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Giriş yap</h5>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="recipient-name" class="col-form-label">Kullanıcı adı</label>
+                    <input type="text" class="form-control" id="recipient-name">
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Devam et</button>
+            </div>
+            </div>
+        </div>
+    </div>
     <!-- Templates -->
     <script id="incoming-message" type="text/x-jsrender">
         <div class="incoming_msg">
-            <div class="incoming_msg_img">  </div>
-            <div class="received_msg">
+            <!-- <div class="incoming_msg_img">  </div> -->
             <div class="received_withd_msg">
-                <p>{{:message}}</p>
-                <span class="time_date"> <!--{{:date}}--> </span></div>
+                <p> <strong>{{:username}}:</strong> {{:message}} </p>
+                <span class="time_date"> </span>
             </div>
         </div>
     </script>
@@ -72,8 +93,8 @@
     <script id="outgoing-message" type="text/x-jsrender">
         <div class="outgoing_msg">
             <div class="sent_msg">
-            <p> {{:message}}</p>
-            <!--<span class="time_date"> <!--{{:date}}--> </span> </div>-->
+                <p> {{:message}} </p>
+            </div>
         </div>
     </script>
 </body>

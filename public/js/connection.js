@@ -4,10 +4,19 @@ function b64EncodeUnicode(str) {
             return String.fromCharCode('0x' + p1);
     }));
 }
+
+function b64EncodeUnicodeObject(obj) {
+    return b64EncodeUnicode(JSON.stringify(obj));
+}
+
 function b64DecodeUnicode(str) {
     return decodeURIComponent(atob(str).split('').map(function(c) {
         return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
     }).join(''));
+}
+
+function b64DecodeUnicodeObject(str) {
+    return JSON.parse(b64DecodeUnicode(str));
 }
 
 export default class ConnectionController {
@@ -34,22 +43,31 @@ export default class ConnectionController {
 
         this.socket.on("chat", (data) => {
             data = data.encryptedData;
-            data = b64DecodeUnicode(this.main.encryptionController.decrypt(data).plaintext);
-            
-            this.main.templateController.renderMessage(data, true);
+            data = this.main.encryptionController.decrypt(data).plaintext;
+            data = b64DecodeUnicodeObject(data);
+
+            console.log(data);
+
+            let isIncoming = data.username !== this.main.userController.getUserData().username;
+
+            this.main.templateController.renderMessage(data, isIncoming);
         });
     }
 
     sendInit() {
-        this.socket.emit("init", { 
-            publicKey: this.main.encryptionController.getPublicKey() 
+        this.emit("init", { 
+            publicKey: this.main.encryptionController.getPublicKey(),
+            userData: this.main.userController.getUserData()
         });
     }
 
     sendMessage(message) {
-        message = b64EncodeUnicode(message);
-        this.socket.emit("chat", {
+        this.emit("chat", {
             content: message
-        })
+        });
+    }
+
+    emit(category, message) {
+        this.socket.emit(category, message); // WIP
     }
 }

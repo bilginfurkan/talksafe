@@ -15,4 +15,13 @@ export default class ModalController {
             hide();
         }
     }
+
+
+    showLoginModal(callback) {
+        $("#login-modal").modal();
+        $("#login-modal button").click(() => {
+            callback($("#login-modal input").val());
+            $("#login-modal").modal("hide");
+        });
+    }
 }

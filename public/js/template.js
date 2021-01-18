@@ -15,7 +15,8 @@ export default class TemplateController {
         $("#message-list").append(
             this.getTemplate("#" + (incoming ? "incoming-message" : "outgoing-message")).render(
                 {
-                    message: message,
+                    message: message.chat,
+                    username: message.username,
                     date: "tarih..."
                 }
             )
