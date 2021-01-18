@@ -9,6 +9,6 @@ app.use(express.static(path.join(__dirname, "public")));
 
 require("./main")(io);
 
-http.listen(3000, () => {
-    console.log("Listening HTTP on *:3000");
+http.listen(6010, () => {
+    console.log("Listening HTTP on *:6010");
 });

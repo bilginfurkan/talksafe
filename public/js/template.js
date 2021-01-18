@@ -21,6 +21,8 @@ export default class TemplateController {
                 }
             )
         )
+
+        $("#message-list").scrollTop($('#message-list')[0].scrollHeight);
     }
 
     addTemplates(arr) {
